@@ -1,0 +1,43 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-northeast1-docker.pkg.dev/$PROJECT_ID/kimagure-server/kimagure-server",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-northeast1-docker.pkg.dev/$PROJECT_ID/kimagure-server/kimagure-server",
+      ]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "kimagure-server",
+        "--image",
+        "asia-northeast1-docker.pkg.dev/$PROJECT_ID/kimagure-server/kimagure-server",
+        "--platform",
+        "managed",
+        "--region",
+        "asia-northeast1",
+        "--allow-unauthenticated",
+        "--cpu",
+        "4",
+        "--memory",
+        "4Gi",
+
+        "--set-env-vars",
+        "GROQ_API_KEY=$_GROQ_API_KEY,GEMINI_API_KEY=$_GEMINI_API_KEY",
+      ]
+images:
+  - "asia-northeast1-docker.pkg.dev/$PROJECT_ID/kimagure-server/kimagure-server"
+
+substitutions:
+  _GROQ_API_KEY: ""
+  _GEMINI_API_KEY: ""

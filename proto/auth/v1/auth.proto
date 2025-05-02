@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "github.com/langrics/kimagure-server/gen/proto/auth/v1;authv1";
+
+service AuthService {
+    rpc AuthenticateAnonymously(AuthenticateAnonymouslyRequest) returns (AuthenticateAnonymouslyResponse);
+  }
+  
+  message AuthenticateAnonymouslyRequest {
+    string device_id = 1;
+  }
+  
+  message AuthenticateAnonymouslyResponse {
+    string token = 1;
+    string user_id = 2;
+  }

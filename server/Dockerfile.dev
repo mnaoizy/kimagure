@@ -1,0 +1,25 @@
+FROM golang:1.23
+
+WORKDIR /app
+
+# Praat (ARM64 barren edition)をインストール
+RUN apt-get update && apt-get install -y wget ffmpeg libc++1 && \
+    wget https://www.fon.hum.uva.nl/praat/praat6427_linux-arm64-barren.tar.gz && \
+    tar -xzf praat6427_linux-arm64-barren.tar.gz && \
+    mv praat_barren /usr/local/bin/praat && \
+    rm praat6427_linux-arm64-barren.tar.gz && \
+    apt-get remove -y wget && \
+    rm -rf /var/lib/apt/lists/*
+
+# Airをインストール
+RUN go install github.com/air-verse/air@latest
+
+# 依存関係をコピー
+COPY go.mod go.sum ./
+RUN go mod download
+
+# ソースコードをコピー
+COPY . .
+
+# ビルドして実行
+CMD ["air", "-c", ".air.toml"]

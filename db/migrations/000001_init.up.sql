@@ -1,0 +1,7 @@
+CREATE TABLE chinese_items (
+  id SERIAL PRIMARY KEY,
+  character TEXT NOT NULL,
+  pinyin TEXT NOT NULL,
+  meaning TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,0 +1,51 @@
+# 一般的な無視パターン
+.git
+.gitignore
+.DS_Store
+*.swp
+*.bak
+*~
+*.log
+
+# 開発/テスト関連
+node_modules/
+vendor/
+tmp/
+test/
+coverage/
+.env
+.env.local
+
+# ビルド成果物
+build/
+dist/
+bin/
+tmp/**
+*.exe
+*.dll
+*.so
+*.a
+*.bin
+
+# IDE/エディタ関連
+.idea/
+.vscode/
+*.iml
+
+# ドキュメント
+docs/
+*.md
+
+# モバイル関連
+mobile/
+
+# アップロードファイル
+server/uploads/
+server/tmp/
+
+# Go関連
+*.test
+*.prof
+
+# プロトコルバッファ関連
+*.pb.go

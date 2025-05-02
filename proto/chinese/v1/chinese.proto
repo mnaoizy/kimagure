@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package chinese.v1;
+
+option go_package = "github.com/langrics/kimagure-server/gen/proto/chinese/v1;chinesev1";
+
+service ChineseService {
+  rpc GetLessons (GetLessonsRequest) returns (GetLessonsResponse) {}
+  rpc GetChineseList (GetChineseListRequest) returns (GetChineseListResponse) {}
+  rpc UploadRecording (UploadRecordingRequest) returns (UploadRecordingResponse) {}
+  rpc GetFeedbacks (GetFeedbackRequest) returns (GetFeedbacksResponse) {}
+}
+
+message UploadRecordingRequest {
+  string item_id = 1;
+  bytes audio_data = 2;
+}
+
+message UploadRecordingResponse {
+  int64 size = 1;
+  repeated float pitches = 2;
+  string feedback = 3; // ユーザー音声とchinese_itemの比較分析結果
+}
+
+message GetLessonsRequest {}
+
+message GetLessonsResponse {
+  repeated Lesson lessons = 1;
+}
+
+message Lesson {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message GetChineseListRequest {
+  string lesson_id = 1;
+}
+
+message GetChineseListResponse {
+  repeated ChineseItem items = 1;
+}
+
+message ChineseItem {
+  string id = 1;
+  string character = 2;  // 漢字
+  string pinyin = 3;     // ピンイン
+  string meaning = 4;    // 意味
+  string lesson_id = 5;  // レッスンID
+  string audio_url = 6;  // TTS音声URL
+  repeated float pitch_data = 7; // ピッチデータ
+}
+
+message GetFeedbackRequest {
+  string item_id = 1;
+}
+
+message Feedback {
+  string text = 1;
+  string created_at = 2;
+}
+
+message GetFeedbacksResponse {
+  repeated Feedback feedbacks = 1;
+}

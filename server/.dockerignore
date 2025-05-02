@@ -1,0 +1,12 @@
+.git
+.gitignore
+node_modules
+*.md
+*.log
+.DS_Store
+.env
+*.tmp
+*.swp
+bin/
+tmp/
+vendor/
